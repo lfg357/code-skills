@@ -1,0 +1,28 @@
+workflow: hotfix
+description: 线上 Bug 热修复流程
+
+steps:
+  1_analyze:
+    skills: [bug-fix]
+    output: "根因分析报告 + MCVE"
+    exit_criteria: "Bug 已稳定复现，根因已定位"
+
+  2_fix:
+    skills: [bug-fix, minimal-coding]
+    output: "最小修复代码"
+    exit_criteria: "MCVE 通过，无无关修改"
+
+  3_test:
+    skills: [test-driven]
+    output: "回归测试 + 原有测试通过"
+    exit_criteria: "回归测试捕获原 Bug，全部测试通过"
+
+  4_review:
+    skills: [code-review]
+    output: "审查报告"
+    exit_criteria: "无 Critical 问题，无引入新风险"
+
+constraints:
+  - "禁止在热修复中做重构或优化"
+  - "禁止修改公共 API 签名"
+  - "必须评估是否需要回滚方案"

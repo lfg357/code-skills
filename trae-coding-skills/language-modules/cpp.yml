@@ -1,0 +1,29 @@
+language: cpp
+version: ">=C++17"
+description: Modern C++ 特异性规则
+
+extends: core-skills
+
+specific_rules:
+  memory:
+    - "禁止裸 new/delete，使用智能指针（unique_ptr > shared_ptr）"
+    - "使用 RAII 管理所有资源"
+    - "优先栈分配，堆分配需论证必要性"
+    - "遵循 Rule of Zero / Rule of Five"
+
+  modern:
+    - "使用 auto 推导复杂类型（迭代器、lambda）"
+    - "使用范围 for 替代索引循环"
+    - "使用结构化绑定（C++17）"
+    - "使用 std::string_view 替代 const std::string& 传参"
+
+  safety:
+    - "使用 enum class 替代 enum"
+    - "使用 constexpr/consteval 编译期计算"
+    - "禁止隐式类型转换（explicit 构造函数）"
+    - "使用 [[nodiscard]] 标记重要返回值"
+
+  performance:
+    - "移动语义：返回本地对象无需 std::move（RVO）"
+    - "热路径避免虚函数和 RTTI"
+    - "优先 std::vector，避免 std::list"

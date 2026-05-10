@@ -1,0 +1,27 @@
+workflow: refactor
+description: 技术债务清理流程
+
+steps:
+  1_baseline:
+    skills: [code-review]
+    output: "基线审查报告（问题清单）"
+    exit_criteria: "已识别所有代码异味和复杂度热点"
+
+  2_plan:
+    skills: [refactoring]
+    output: "重构计划（步骤、范围、风险）"
+    exit_criteria: "计划已确认，测试覆盖已验证"
+
+  3_execute:
+    skills: [refactoring, minimal-coding]
+    output: "逐步重构后的代码"
+    exit_criteria: "每步可编译/运行，行为不变"
+
+  4_verify:
+    skills: [code-review, test-driven]
+    output: "验证报告"
+    exit_criteria: "所有测试通过，复杂度下降，无行为变更"
+
+constraints:
+  - "禁止混合功能变更"
+  - "每次提交只做一种重构操作"

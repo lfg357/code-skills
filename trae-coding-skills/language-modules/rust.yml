@@ -1,0 +1,29 @@
+language: rust
+version: ">=1.75"
+description: Rust 特异性规则
+
+extends: core-skills
+
+specific_rules:
+  ownership:
+    - "优先不可变借用 (&T)，其次可变借用 (&mut T)，最后所有权 (T)"
+    - "使用 clone() 需注释说明必要性"
+    - "使用 Rc/Arc 需论证为何需要共享所有权"
+    - "使用 Cell/RefCell 限制在单线程内部可变性"
+
+  safety:
+    - "unsafe 块必须最小化，并附 SAFETY 注释"
+    - "使用 unwrap/expect 需论证为何不会 panic"
+    - "使用 ? 传播错误，避免 match 嵌套"
+    - "优先标准库类型（Vec, String）而非裸指针"
+
+  idiomatic:
+    - "使用迭代器方法替代手动循环"
+    - "使用 match 穷尽所有变体"
+    - "使用 derive 宏减少样板"
+    - "使用 Cargo workspace 管理多 crate 项目"
+
+  performance:
+    - "使用 &str 替代 String 传参"
+    - "使用 Vec::with_capacity 预分配"
+    - "使用 mem::take/mem::replace 避免克隆"

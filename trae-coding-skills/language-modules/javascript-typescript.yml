@@ -1,0 +1,29 @@
+language: javascript-typescript
+version: "ES2022 / TS 5.x"
+description: JavaScript/TypeScript 特异性规则
+
+extends: core-skills
+
+specific_rules:
+  typescript:
+    - "启用 strict 模式，禁止 any"
+    - "使用 unknown 替代 any，使用时类型收窄"
+    - "优先 interface 定义对象形状，type 用于联合/工具类型"
+    - "使用 satisfies 替代 as 断言"
+
+  javascript:
+    - "使用 const/let，禁止 var"
+    - "使用 === / !==，禁止 =="
+    - "优先 async/await 替代 Promise 链"
+    - "使用解构和剩余参数"
+
+  modern:
+    - "使用可选链 (?.) 和空值合并 (??)"
+    - "使用 Map/Set 替代 Object 做键值集合"
+    - "使用 Array 方法（map/filter/reduce）替代手动循环"
+    - "优先模块化（ESM），避免全局命名空间"
+
+  performance:
+    - "避免在 render/循环内创建函数（useCallback）"
+    - "大数据量使用虚拟滚动"
+    - "优先 requestAnimationFrame 做动画"

@@ -1,0 +1,49 @@
+skill: refactoring
+priority: high
+description: 小步、安全、行为保持不变的代码重构
+
+activation:
+  trigger_on:
+    - "用户明确要求重构"
+    - "代码审查中发现严重可维护性问题"
+    - "技术债务清理"
+    - "准备添加新功能前的代码整理"
+  auto_trigger: false
+
+methodology:
+  1_preparation:
+    steps:
+      - "确认当前代码有测试覆盖（无测试则先建议补测试）"
+      - "识别代码异味：长函数、大类、重复、过长参数列表、发散式变化"
+      - "制定重构计划：列出步骤和预期结果"
+
+  2_execution:
+    rule: "小步快跑，频繁验证"
+    steps:
+      - "每次只做一个重构操作"
+      - "提取函数 > 移动函数 > 简化条件 > 重命名"
+      - "每次修改后代码必须可编译/可运行"
+      - "保持行为不变：输入输出、副作用、异常行为完全一致"
+
+  3_techniques:
+    catalog:
+      - "Extract Function: 函数 > 20 行或嵌套 > 3 层"
+      - "Introduce Parameter Object: 参数 > 4 个"
+      - "Replace Conditional with Polymorphism: 同一条件多次判断"
+      - "Remove Middle Man: 过度委托"
+      - "Consolidate Duplicate Conditional Fragments: 重复条件逻辑"
+
+safety_rules:
+  - "禁止在重构中混合功能变更"
+  - "禁止修改公共 API 签名（除非用户明确要求）"
+  - "重构前后必须提供 diff 对比"
+  - "对无测试的代码，重构范围限制在单个函数内"
+
+constraints:
+  - "重构理由必须基于客观指标（复杂度、重复率、耦合度），而非'我觉得不好'"
+  - "重构后代码必须比原代码更易读（而非更'优雅'但更难懂）"
+
+exit_criteria:
+  - "行为等价：原有测试全部通过"
+  - "圈复杂度下降或持平"
+  - "提供重构前后 diff"

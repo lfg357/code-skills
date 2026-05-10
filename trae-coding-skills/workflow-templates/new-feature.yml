@@ -1,0 +1,32 @@
+workflow: new-feature
+description: 从零实现一个功能的标准流程
+
+steps:
+  1_design:
+    skills: [karpathy-style]
+    output: "API 设计文档 / 接口签名"
+    exit_criteria: "接口签名通过审查，无过度设计"
+
+  2_test:
+    skills: [test-driven]
+    output: "失败的测试（Red）"
+    exit_criteria: "所有测试编译/解析通过，运行时失败（符合预期）"
+
+  3_impl:
+    skills: [karpathy-style, minimal-coding]
+    output: "最小实现（Green）"
+    exit_criteria: "所有测试通过，无过度实现"
+
+  4_review:
+    skills: [code-review]
+    output: "审查报告"
+    exit_criteria: "无 Critical/Warning 项"
+
+  5_refine:
+    skills: [refactoring, documentation]
+    output: "重构后代码 + 文档"
+    exit_criteria: "复杂度 <= 10，核心逻辑有注释"
+
+auto_abort:
+  - "任一阶段 exit_criteria 未满足"
+  - "用户明确停止"

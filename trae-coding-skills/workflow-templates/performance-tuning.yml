@@ -1,0 +1,32 @@
+workflow: performance-tuning
+description: 性能调优流程
+
+steps:
+  1_profile:
+    skills: [optimization]
+    output: "性能分析报告（热点、瓶颈类型）"
+    exit_criteria: "已定位真正瓶颈，有基准数据"
+
+  2_hypothesis:
+    skills: [optimization]
+    output: "优化假设 + 预期收益"
+    exit_criteria: "假设可验证，收益可量化"
+
+  3_impl:
+    skills: [optimization, minimal-coding]
+    output: "优化实现"
+    exit_criteria: "代码可编译/运行，逻辑等价"
+
+  4_benchmark:
+    skills: [test-driven, optimization]
+    output: "基准测试对比报告"
+    exit_criteria: "性能提升可量化，无回归"
+
+  5_review:
+    skills: [code-review]
+    output: "审查报告"
+    exit_criteria: "可读性代价可接受，无新 Critical 问题"
+
+constraints:
+  - "禁止无基准的优化"
+  - "禁止牺牲核心可读性做微优化"

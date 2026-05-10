@@ -1,0 +1,52 @@
+skill: documentation
+priority: medium
+description: 代码即文档，注释解释"为什么"而非"做什么"
+
+activation:
+  trigger_on:
+    - "代码审查中发现可读性问题"
+    - "重构后补充说明"
+    - "用户要求添加注释/文档"
+    - "公共 API / 库函数编写"
+  auto_trigger: false
+
+principles:
+  1_self_documenting:
+    rule: "优先让代码自解释"
+    standards:
+      - "好的命名 > 注释"
+      - "好的函数拆分 > 注释"
+      - "好的类型注解 > 注释"
+      - "注释只解释'为什么'和'注意事项'，不解释'做什么'"
+
+  2_api_docs:
+    rule: "公共接口必须有文档"
+    standards:
+      - "函数：描述目的、参数含义、返回值、异常抛出、使用示例"
+      - "类：描述职责、不变式、线程安全性"
+      - "模块：描述整体职责、主要导出、依赖关系"
+      - "使用标准文档格式（docstring/Javadoc/JSDoc/GoDoc）"
+
+  3_inline_comments:
+    rule: "行内注释是最后的手段"
+    standards:
+      - "仅在以下情况添加：业务规则反直觉、算法有特定假设、性能优化有代价、已知技术债务"
+      - "注释必须与代码同步，过期注释比无注释更糟"
+      - "禁止注释掉的代码（用版本控制保留历史）"
+
+  4_readme:
+    rule: "模块级 README 说明上下文"
+    standards:
+      - "一句话描述模块职责"
+      - "快速开始示例"
+      - "关键设计决策说明"
+
+constraints:
+  - "禁止为自解释代码添加冗余注释"
+  - "禁止注释与代码矛盾"
+  - "禁止用注释替代好的命名"
+
+exit_criteria:
+  - "公共 API 文档覆盖率 100%"
+  - "无过期注释"
+  - "无注释掉的代码"

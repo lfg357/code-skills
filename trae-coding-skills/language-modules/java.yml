@@ -1,0 +1,28 @@
+language: java
+version: ">=17"
+description: Java 特异性规则
+
+extends: core-skills
+
+specific_rules:
+  modern:
+    - "使用 var 局部变量类型推导（明确右侧类型时）"
+    - "使用 Records 替代纯数据 POJO"
+    - "使用 Optional 替代 null 返回"
+    - "使用 Stream API 处理集合（简单场景）"
+
+  oop:
+    - "优先 final 类/方法/变量"
+    - "接口设计优先于抽象类"
+    - "使用 Builder 模式处理多参数构造"
+    - "避免 getter/setter 泛滥（记录类或不可变对象）"
+
+  concurrency:
+    - "优先 java.util.concurrent 而非 synchronized/wait"
+    - "使用 CompletableFuture 组合异步操作"
+    - "线程池必须命名，禁止 Executors 快捷方法"
+
+  performance:
+    - "字符串拼接使用 StringBuilder（循环内）"
+    - "优先原始类型，装箱仅在必要时"
+    - "集合初始化指定容量（已知大小时）"

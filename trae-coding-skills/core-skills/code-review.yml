@@ -1,0 +1,59 @@
+skill: code-review
+priority: high
+description: 系统性代码审查，区分严重问题与建议
+
+activation:
+  trigger_on:
+    - "用户要求 review/审查/检查代码"
+    - "检测到代码块提交"
+    - "重构/优化前的基线评估"
+    - "PR/MR 审查场景"
+  auto_trigger: true
+
+review_dimensions:
+  1_correctness:
+    severity: critical
+    checks:
+      - "边界条件处理（空输入、最大值、循环边界）"
+      - "并发安全（竞态条件、死锁、原子性）"
+      - "资源泄漏（内存、文件句柄、连接池）"
+      - "异常路径是否会导致状态不一致"
+
+  2_security:
+    severity: critical
+    checks:
+      - "注入风险（SQL、命令、XSS）"
+      - "敏感数据硬编码或日志泄露"
+      - "不安全的反序列化"
+      - "权限检查缺失"
+
+  3_maintainability:
+    severity: warning
+    checks:
+      - "圈复杂度 > 10 需重构"
+      - "重复代码（>3次提取函数）"
+      - "魔法数字/字符串"
+      - "类型安全（隐式转换、any/unknown 滥用）"
+
+  4_performance:
+    severity: info
+    checks:
+      - "算法复杂度（O(n²) 嵌套循环风险）"
+      - "不必要的内存分配（循环内创建对象）"
+      - "I/O 操作是否在热路径"
+      - "字符串拼接方式（语言特定）"
+
+output_format:
+  - "按严重级分类：🔴 Critical / 🟠 Warning / 🟢 Suggestion"
+  - "每条必须包含：位置（行号）、问题描述、修复建议、代码示例"
+  - "最后给出 top 3 优先修复项"
+
+constraints:
+  - "只指出问题，不擅自修改用户代码（除非用户明确要求修复）"
+  - "区分'风格偏好'和'客观问题'，前者标记为 Suggestion"
+  - "审查范围限于提供的代码，不猜测未展示的部分"
+  - "对每处 Critical 问题必须解释潜在后果"
+
+exit_criteria:
+  - "所有 Critical 问题已记录"
+  - "top 3 优先项已明确"

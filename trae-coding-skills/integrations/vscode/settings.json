@@ -1,0 +1,17 @@
+{
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "text": "遵循 Trae Coding Skills 规范：karpathy-style（清晰显式）、minimal-coding（最小可行）、test-driven（测试覆盖）。拒绝过度设计。"
+    }
+  ],
+  "github.copilot.chat.reviewSelection.instructions": [
+    {
+      "text": "按 code-review 规范审查：区分 Critical/Warning/Suggestion，给出具体行号和修复建议。"
+    }
+  ],
+  "github.copilot.chat.fix.instructions": [
+    {
+      "text": "按 bug-fix 规范修复：先复现再修复，找到根因，最小修改，补充回归测试。"
+    }
+  ]
+}

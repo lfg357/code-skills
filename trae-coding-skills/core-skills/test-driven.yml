@@ -1,0 +1,55 @@
+skill: test-driven
+priority: high
+description: 任何代码修改必须有测试覆盖，拒绝无测试的"正确"代码
+
+activation:
+  trigger_on:
+    - "新增函数/类/模块"
+    - "修复 Bug"
+    - "重构逻辑"
+    - "优化性能（需基准测试）"
+  ignore_when:
+    - "纯文档/注释修改"
+    - "配置文件（无逻辑）修改"
+  auto_trigger: true
+
+principles:
+  1_coverage:
+    rule: "修改的代码必须有测试验证"
+    standards:
+      - "Bug 修复：必须先写回归测试（复现 Bug），再修复，测试通过"
+      - "新功能：单元测试覆盖率 >= 80%（行覆盖）"
+      - "边界条件：必须显式测试（null、空、最大值、异常输入）"
+
+  2_test_quality:
+    rule: "测试即文档"
+    standards:
+      - "测试名应描述行为：test_returns_empty_when_input_null"
+      - "一个测试只验证一个概念（Single Assert Rule）"
+      - "避免测试实现细节，测试行为契约"
+      - "禁止使用 sleep 做异步测试，使用语言标准同步原语"
+
+  3_test_types:
+    hierarchy:
+      - "Unit Test: 函数级，毫秒级，无 I/O"
+      - "Integration Test: 模块级，涉及真实依赖"
+      - "E2E Test: 用户场景级，仅关键路径"
+    rule: "优先单元测试，集成测试仅验证交互契约"
+
+  4_benchmark:
+    rule: "性能优化必须有基准测试"
+    standards:
+      - "使用语言标准 Benchmark 工具（pytest-benchmark, Google Benchmark, criterion.rs）"
+      - "基准测试必须稳定（消除噪声：预热、多次运行、统计显著性）"
+      - "记录环境信息：CPU、内存、语言版本"
+
+constraints:
+  - "禁止提交被注释掉的测试"
+  - "禁止提交跳过的测试（skip/xit/pending）除非附 TODO 和 Issue 链接"
+  - "禁止在测试中使用生产环境数据"
+  - "测试失败时必须提供清晰的错误信息，禁止裸 assert"
+
+exit_criteria:
+  - "新增/修改代码覆盖率 >= 80%"
+  - "所有测试通过"
+  - "性能优化有基准数据对比"

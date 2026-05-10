@@ -1,0 +1,29 @@
+language: go
+version: ">=1.22"
+description: Go way 特异性规则
+
+extends: core-skills
+
+specific_rules:
+  error_handling:
+    - "错误立即处理，不传播裸 error"
+    - "使用 fmt.Errorf with %w 包装错误"
+    - "禁止忽略错误返回值（_ = f() 需注释说明）"
+    - "Sentinel errors 使用 errors.Is/As"
+
+  idiomatic:
+    - "接受接口，返回结构体"
+    - "接口定义在使用方，而非实现方"
+    - "使用 context.Context 传递取消信号和元数据"
+    - "使用 defer 释放资源"
+
+  concurrency:
+    - "使用 errgroup 管理 goroutine 生命周期"
+    - "Channel 所有权明确：发送方关闭"
+    - "避免共享内存，使用 Channel 通信"
+    - "使用 sync.Pool 复用高频临时对象"
+
+  performance:
+    - "使用 strings.Builder 替代 + 拼接"
+    - "预分配 slice/map 容量"
+    - "避免在热路径反射"

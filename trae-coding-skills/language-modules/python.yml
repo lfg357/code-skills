@@ -1,0 +1,31 @@
+language: python
+version: ">=3.9"
+description: Python 特异性规则，叠加于通用 Skills 之上
+
+extends: core-skills
+
+specific_rules:
+  typing:
+    - "所有函数参数和返回值必须类型注解"
+    - "使用 collections.abc 而非 typing 中的泛型（3.9+）"
+    - "拒绝 Any，使用 TypeVar/Generic 或明确 Union"
+    - "使用 | 替代 Union（3.10+）"
+
+  idiomatic:
+    - "优先 pathlib 而非 os.path"
+    - "优先 dataclasses 而非手写 __init__"
+    - "优先 enum 而非魔法常量"
+    - "使用 isort + black 格式化，行宽 88"
+    - "异常捕获指定类型，禁止裸 except:"
+    - "使用 contextlib 管理资源"
+
+  async:
+    - "async 函数禁止阻塞调用（time.sleep, requests.get）"
+    - "使用 asyncio.gather 并发而非顺序 await"
+    - "正确传播 CancellationToken"
+
+  performance:
+    - "热路径避免在循环内 import"
+    - "大数据量优先生成器（yield）而非列表"
+    - "字符串拼接使用 join，禁止循环内 +="
+    - "优先 __slots__ 减少内存（高频实例类）"

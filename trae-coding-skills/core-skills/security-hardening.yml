@@ -1,0 +1,62 @@
+skill: security-hardening
+priority: high
+description: 深度安全规范，覆盖输入验证、注入防御、供应链安全
+
+activation:
+  trigger_on:
+    - "代码涉及用户输入处理"
+    - "代码涉及网络请求/响应"
+    - "代码涉及文件/数据库操作"
+    - "代码涉及序列化/反序列化"
+    - "安全审查 / 渗透测试准备"
+  auto_trigger: false
+
+principles:
+  1_input_validation:
+    rule: "永不信任外部输入"
+    standards:
+      - "所有输入必须在边界处验证（类型、长度、范围、格式）"
+      - "拒绝黑名单，使用白名单验证"
+      - "尽早失败（fail-fast），不在内部传播脏数据"
+      - "错误信息不泄露内部实现细节"
+
+  2_injection_defense:
+    rule: "参数化一切"
+    standards:
+      - "SQL：强制使用参数化查询/ORM，禁止字符串拼接"
+      - "命令：禁止直接拼接用户输入到系统命令"
+      - "路径：验证并规范化路径，禁止目录遍历"
+      - "HTML/JS：输出时编码，使用模板引擎自动转义"
+
+  3_secrets_management:
+    rule: "密钥不落地"
+    standards:
+      - "禁止硬编码密码/API Key/Token"
+      - "使用环境变量或密钥管理服务"
+      - "日志中脱敏敏感信息"
+      - "定期轮换凭证"
+
+  4_deserialization:
+    rule: "反序列化是危险操作"
+    standards:
+      - "禁止使用语言原生反序列化处理不可信数据"
+      - "使用安全格式（JSON with schema validation）"
+      - "验证反序列化后的对象状态"
+
+  5_dependencies:
+    rule: "供应链安全"
+    standards:
+      - "锁定依赖版本（lock file）"
+      - "定期审计依赖漏洞（npm audit, pip-audit, cargo audit）"
+      - "最小权限原则：依赖只引入必要功能"
+
+constraints:
+  - "禁止信任客户端传来的任何数据"
+  - "禁止在日志中输出敏感字段"
+  - "禁止禁用安全校验（SSL verify=False 等）"
+  - "禁止在错误信息中暴露堆栈跟踪给终端用户"
+
+exit_criteria:
+  - "所有外部输入点已识别并验证"
+  - "无硬编码密钥"
+  - "无字符串拼接 SQL/命令"
